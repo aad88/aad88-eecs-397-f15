@@ -1,0 +1,10 @@
+#goal definition
+float64 amp
+float64 freq
+int32 cycles
+---
+#result definition
+bool result
+---
+#feedback
+int32 fdbk
