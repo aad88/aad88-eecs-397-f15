@@ -33,9 +33,11 @@ int main(int argc, char **argv)
 
     srv.request.frequency = frequency.data;
     srv.request.amplitude = amplitude.data;
+
+    ROS_INFO("have info, amp = %f, freq = %f", amplitude.data, frequency.data);
    
     if(client.call(srv)) {
-      
+      ROS_INFO("srv called");
     }
     else{
       ROS_ERROR("Failed to change amplitude and frequency");

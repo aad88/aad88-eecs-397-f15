@@ -13,6 +13,7 @@ std_msgs::Float64 amp;
 std_msgs::Float64 freq;
 
 bool callback(defiore_cmdr_pkg::sinRequest &request, defiore_cmdr_pkg::sinResponse &response){
+  ROS_INFO("in callback");
   if(request.amplitude>=0 && request.frequency>=0){
     //if valid values for amp and freq, transfer from service to node
     amp.data = request.amplitude;
@@ -40,8 +41,8 @@ int main(int argc, char **argv){
   ros::Rate naptime(1.0);
   //sleep timer for 1Hz repetition rate
   
-  //amp.data = 0.0;
-  //freq.data = 0.0;
+  amp.data = 3.0;
+  freq.data = 1.0;
   sinusoidal.data = 0.0;
   time.data = 0.0;
   //set starting values for variables

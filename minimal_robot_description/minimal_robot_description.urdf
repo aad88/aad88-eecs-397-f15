@@ -62,7 +62,7 @@
     </inertial>
   </link>
 
-<!-- Moveable extra Link >
+<!-- Moveable extra Link -->
   <link name="link3">
     <collision>
       <origin xyz="0 0 0.5" rpy="0 0 0" />
@@ -81,12 +81,12 @@
     <inertial>
       <origin xyz="0 0 0.5" rpy="0 0 0" />
       <mass value="1" />
-      <intertia
+      <inertia
         ixx="0.1" ixy="0.0" ixz="0.0"
         iyy="0.1" iyz="0.0"
         izz="0.1" />
     </inertial>
-  </link> -->
+  </link>
 
   <joint name="joint1" type="continuous">
     <parent link="link1"/>
@@ -95,11 +95,11 @@
     <axis xyz="0 1 0"/>
   </joint>
 
- <!-- <joint name="joint2" type="continuoous">
-    <parent linke="link2" />
+  <joint name="joint2" type="continuous">
+    <parent link="link2" />
     <child link="link3" />
-    <origin xyz="0 0 2" rpy="0 0 0" />
+    <origin xyz="0 0 0.7" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-  </joint> -->
+  </joint>
 </robot>
 
