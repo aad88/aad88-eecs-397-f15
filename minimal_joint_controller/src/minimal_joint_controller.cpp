@@ -131,8 +131,8 @@ int main(int argc, char **argv) {
     double time = 0.0;
 
     while(ros::ok()) {
-        g_pos_cmd = amp1 * sin(2*M_PI*freq1*time);
-        g_pos2_cmd = amp2 * sin(2*M_PI*freq2*time);
+        //g_pos_cmd = amp1 * sin(2*M_PI*freq1*time);
+        //g_pos2_cmd = amp2 * sin(2*M_PI*freq2*time);
      
 	//joint 1    
         get_jnt_state_client.call(get_joint_state_srv_msg);

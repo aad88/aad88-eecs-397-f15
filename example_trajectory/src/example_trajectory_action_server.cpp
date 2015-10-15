@@ -26,6 +26,7 @@ private:
 
     ros::NodeHandle nh_;  // we'll need a node handle; get one upon instantiation
     ros::Publisher  jnt_cmd_publisher_; // need a publisher to talk to the joint controller
+    ros::Publisher jnt_cmd2_publisher_;
     // this class will own a "SimpleActionServer" called "as_".
     actionlib::SimpleActionServer<example_trajectory::TrajActionAction> as_;
     
@@ -56,7 +57,8 @@ TrajectoryActionServer::TrajectoryActionServer(ros::NodeHandle* nodehandle):nh_(
     // do any other desired initializations here...specific to your implementation
     ROS_INFO("Initializing Publisher");
     //next line specialized for use with minimal_joint_controller:
-    jnt_cmd_publisher_ = nh_.advertise<std_msgs::Float64>("pos_cmd", 1, true); 
+    jnt_cmd_publisher_ = nh_.advertise<std_msgs::Float64>("pos_cmd", 1, true);
+    jnt_cmd2_publisher_ = nh_.advertise<std_msgs::Float64>("pos2_cmd", 1, true); 
     as_.start(); //start the server running
 }
 
@@ -64,9 +66,13 @@ TrajectoryActionServer::TrajectoryActionServer(ros::NodeHandle* nodehandle):nh_(
 void  TrajectoryActionServer::send_joint_commands_(vector <double> q_cmd_jnts) { 
     //for minimal_joint_controller, we only have one joint, and we command it with a publication
     std_msgs::Float64 q_cmd_msg; //need this to send commands to minimal_joint_controller
+    std_msgs::Float64 q_cmd2_msg;
     q_cmd_msg.data = q_cmd_jnts[0]; // boring...only one component; really should check size, to make sure at least this component exists
+    q_cmd2_msg.data = q_cmd_jnts[1];
     jnt_cmd_publisher_.publish(q_cmd_msg); // this is how we talk to the minimal_joint_controller; change this for your target controller
+    jnt_cmd2_publisher_.publish(q_cmd2_msg);
     ROS_INFO("commanding: %f",q_cmd_jnts[0]);
+    ROS_INFO("commanding: %f",q_cmd_jnts[1]);
 }
    
    

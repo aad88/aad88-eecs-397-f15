@@ -21,7 +21,9 @@ int main(int argc, char** argv) {
         // we will command a limited-duration sinusoidal motion; define amplitude, frequency and duration
 	double omega = 1.0; //rad/sec
         double amp = 0.5; //radians
+        double amp2 = 0.0;
 	double start_angle= amp;
+        double start_angle2 = amp2;
 	double final_phase = 4*3.1415927; // radians--two periods
         
         //dt: break up trajectory into incremental commands this far apart in time
@@ -54,6 +56,7 @@ int main(int argc, char** argv) {
         // the current example is not so tolerant--it requires specifying ALL joint command values in a FIXED order
         // but for this simple example, there is only 1 joint anyway
 	trajectory.joint_names.push_back("joint1");
+        trajectory.joint_names.push_back("joint2");
 	// repeat the above command for every joint of the robot, in some preferred order
 	// joint position commands below must be specified in the same order as specified in the joint_names array
 	int njnts = trajectory.joint_names.size(); // we specified this many joints;  need same size for position and velocity vectors
@@ -64,14 +67,19 @@ int main(int argc, char** argv) {
 	double final_time; //seconds
         double phase = 0.0; //radians        
 	double time_from_start = 0.0; // seconds
-	double q_des,qdot_des; //radians, radians/sec       
+	double q_des,qdot_des; //radians, radians/sec   
+        double q_des2, qdot_des2;    
         
         //"phase" is a convenient variable = omega*time
 	for (phase=0.0;phase<final_phase;phase+=omega*dt) {
 		q_des = start_angle + amp*sin(phase); //here we make up a desired trajectory shape: q_des(t)
-		qdot_des = amp*omega*cos(phase); // this is the time derivative of q_des; 
+                q_des2 = start_angle2 + amp2*sin(phase);
+		qdot_des = amp*omega*cos(phase); // this is the time derivative of q_des;
+                qdot_des2 = amp2*omega*cos(phase); 
 		trajectory_point.positions[0] = q_des; // do this for every joint, from 0 through njnts-1
 		trajectory_point.velocities[0] = qdot_des; // and all velocities (in the server example, velocities will get ignored)
+                trajectory_point.positions[1] = q_des2;
+                trajectory_point.velocities[1] = qdot_des2;
 		time_from_start+= dt; //cumulative time from start of move
  		ROS_INFO("phase = %f, t = %f",phase,time_from_start);               
 		//specify arrival time for this point--in ROS "duration" format
