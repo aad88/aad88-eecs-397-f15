@@ -36,6 +36,7 @@ int main(int argc, char **argv)
 
     ROS_INFO("have info, amp = %f, freq = %f", amplitude.data, frequency.data);
    
+    ros::spinOnce();
     if(client.call(srv)) {
       ROS_INFO("srv called");
     }

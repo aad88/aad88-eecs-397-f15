@@ -38,7 +38,7 @@ int main(int argc, char **argv){
   std_msgs::Float64 time;
   //create variable to make the sinusoidal output time dependent
   
-  ros::Rate naptime(1.0);
+  ros::Rate naptime(100.0);
   //sleep timer for 1Hz repetition rate
   
   amp.data = 3.0;
@@ -53,7 +53,7 @@ int main(int argc, char **argv){
 	  sinusoidal.data = amp.data * sin(2*PI*freq.data*time.data);
 	  my_publisher_object.publish(sinusoidal);
 	  //publish the sinusoidal function based on amplitude, frequency, and time to the topic vel_cmd
-	  
+	  ros::spinOnce();
 	  naptime.sleep();
 	  //makes the loop sleep for the rest of this time period to maintain even loop frequency
   }

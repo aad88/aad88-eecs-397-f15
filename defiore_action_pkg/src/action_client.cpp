@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
       ROS_WARN("giving up waiting on result");
       return 0;
     }
-
+    ros::spinOnce();
   }//end while
 
   return 0;

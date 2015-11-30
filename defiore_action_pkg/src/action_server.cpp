@@ -68,8 +68,8 @@ void ActionServer::executeCB(const actionlib::SimpleActionServer<defiore_action_
   std_msgs::Float64 time;
   //create variable to make the sinusoidal output time dependent
   
-  ros::Rate naptime(1.0);
-  //sleep timer for 1Hz repetition rate
+  ros::Rate naptime(100.0);
+  //sleep timer for 100Hz repetition rate
 
   time.data = 0.0;
   std_msgs::Float64 max_time;
@@ -77,8 +77,11 @@ void ActionServer::executeCB(const actionlib::SimpleActionServer<defiore_action_
 
   while(time.data <= max_time.data){
     sinusoidal.data = amp.data * sin(2*PI*freq.data*time.data);
+    ros::spinOnce();
     my_publisher_object.publish(sinusoidal); //publish sine output to vel_cmd
+    ROS_INFO("sin = %f", sinusoidal);
     time.data = time.data + 0.01; //increment time
+    
   }
 
   sinusoidal.data = 0.0;//reset to zero
